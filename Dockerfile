@@ -12,7 +12,7 @@ LABEL io.k8s.description="Platform for building and running JEE applications on 
       io.openshift.s2i.destination="/opt/s2i/destination"
 
 COPY apache-maven-3.5.4-bin.tar.gz /
-COPY oc /usr/local/bin/
+ADD oc.zip /usr/local/bin/
 # Install Maven, Tomcat 8.5.24
 RUN INSTALL_PKGS="tar java-1.8.0-openjdk java-1.8.0-openjdk-devel" && \
     yum install -y --enablerepo=centosplus $INSTALL_PKGS && \
