@@ -10,9 +10,11 @@ LABEL io.k8s.description="Platform for building and running JEE applications on 
       io.k8s.display-name="Tomcat Builder" \
       io.openshift.tags="builder,tomcat" \
       io.openshift.s2i.destination="/opt/s2i/destination"
-
+RUN yum install zip -y && yum install unzip -y
 COPY apache-maven-3.5.4-bin.tar.gz /
 ADD oc.zip /usr/local/bin/
+WORKDIR /usr/local/bin/
+RUN unzip oc.zip
 # Install Maven, Tomcat 8.5.24
 RUN INSTALL_PKGS="tar java-1.8.0-openjdk java-1.8.0-openjdk-devel" && \
     yum install -y --enablerepo=centosplus $INSTALL_PKGS && \
