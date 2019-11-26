@@ -61,7 +61,7 @@ ADD ./settings.xml $HOME/.m2/
 # Copy the S2I scripts from the specific language image to $STI_SCRIPTS_PATH
 #COPY ./s2i/bin/ $STI_SCRIPTS_PATH
 COPY ./s2i/bin/ /usr/libexec/s2i
-RUN mknod /dev/null c 1 3
+#RUN mknod /dev/null c 1 3
 RUN chmod -R a+rw /logs && \
     chmod -R a+rw /springboot && \
     chmod -R a+rw $HOME && \
