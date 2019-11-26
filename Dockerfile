@@ -11,6 +11,7 @@ LABEL io.k8s.description="Platform for building and running JEE applications on 
       io.openshift.tags="builder,tomcat" \
       io.openshift.s2i.destination="/opt/s2i/destination"
 RUN yum install zip -y && yum install unzip -y
+RUN yum install java-1.8.0-openjdk  java-1.8.0-openjdk-devel -y
 COPY apache-maven-3.5.4-bin.tar.gz /
 COPY oc.zip /usr/local/bin/
 RUN  ls -l /usr/local/bin/
