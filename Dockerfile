@@ -42,7 +42,7 @@ RUN yum makecache fast \
       which \
       python-pip \
  && yum clean all
-
+RUN pip install --upgrade pip
 # Install Ansible via Pip.
 RUN pip install $pip_packages
 
