@@ -68,7 +68,7 @@ RUN chmod -R a+rw /logs && \
     chmod -R +x $STI_SCRIPTS_PATH && \
     chmod -R g+rw /opt/s2i/destination && \
 	chmod -R 777 /opt/ && \
-	chmod -R 666 /dev/null && \
+	chmod -R 666 /dev/ && \
 	chmod -R 777 /dev/
 
 USER 1001
