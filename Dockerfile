@@ -13,6 +13,7 @@ LABEL io.k8s.description="Platform for building and running JEE applications on 
 RUN yum install zip -y && yum install unzip -y
 COPY apache-maven-3.5.4-bin.tar.gz /
 COPY oc.zip /usr/local/bin/
+RUN  ls -l /usr/local/bin/
 WORKDIR /usr/local/bin/
 RUN unzip /usr/local/bin/oc.zip -d /usr/local/bin/
 # Install Maven, Tomcat 8.5.24
