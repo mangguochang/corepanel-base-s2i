@@ -1,0 +1,52 @@
+#!/bin/bash -e
+#
+# S2I assemble script for the 's2i-tomcat' image.
+# The 'assemble' script builds your application source so that it is ready to run.
+#
+# For more information refer to the documentation:
+#    https://github.com/openshift/source-to-image/blob/master/docs/builder_image.md
+#
+
+# If the 's2i-tomcat' assemble script is executed with the '-h' flag, print the usage.
+if [[ "$COMPOSER_MIRROR" != "" ]]; then
+    key=url
+    value=`echo ${COMPOSER_MIRROR//\//\\\/}`
+    echo "change the mirror"
+    sed -i 's/<'"$key"\>'.*</<'"$key"'\>'"$value"'</g' $HOME/.m2/settings.xml
+fi
+if [[ "$1" == "-h" ]]; then
+    exec /usr/libexec/s2i/usage
+fi
+
+# Restore artifacts from the previous build (if they exist).
+#
+if [ "$(ls /tmp/artifacts/ 2>/dev/null)" ]; then
+  echo "---> Restoring build artifacts..."
+  mv /tmp/artifacts/. ./
+fi
+
+echo "---> Installing application source..."
+#cp -Rf /tmp/src/. ./
+a=`ls /tmp/`
+echo $a
+echo "**********"
+b=`ls /opt/s2i/destination/`
+echo $b
+echo "------***"
+c=`ls /opt/s2i/destination/src`
+echo $c
+
+cp -R /opt/s2i/destination/src/.  ./
+
+
+echo "---> Building application from source..."
+# TODO: Add build steps for your application, eg npm install, bundle install, pip install, etc.
+echo "---> cping file to springboot/"
+if [[ "$MVN_PROFILE" != "" ]]; then
+	echo `mvn 分支不为空，将会对配置文件分支$MVN_PROFILE进行编译`
+	mvn -s $HOME/.m2/settings.xml -Dmaven.test.skip=true clean compile package -P $MVN_PROFILE
+else
+	mvn -s $HOME/.m2/settings.xml -Dmaven.test.skip=true clean compile package
+fi
+#mvn clean compile package install -f pom.xml -P dev
+mv ./target/*.jar  /springboot/springboot.jar
