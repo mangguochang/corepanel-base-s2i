@@ -70,9 +70,9 @@ RUN chmod -R a+rw /logs && \
 	chmod -R 777 /opt/ && \
 	chmod -R 666 /dev/ && \
 	chmod -R 777 /dev/
-RUN mknod -m 666 /dev/random c 1 8
+#RUN mknod -m 666 /dev/random c 1 8
 
-RUN mknod -m 666 /dev/urandom c 1 9
+#RUN mknod -m 666 /dev/urandom c 1 9
 RUN chown root:root /dev/random /dev/urandom
 USER 1001
 
