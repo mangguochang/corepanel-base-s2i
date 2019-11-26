@@ -32,7 +32,7 @@ RUN INSTALL_PKGS="tar java-1.8.0-openjdk java-1.8.0-openjdk-devel" && \
     mkdir  /springboot/ && \
     mkdir /logs	
 RUN sudo yum install -y git
-RUN sudo yum install -y epel-release -y && sudo yum install ansible -y 
+RUN sudo yum install -y epel-release && sudo yum install ansible -y 
 # Add s2i customizations
 ADD ./settings.xml $HOME/.m2/
 # Copy the S2I scripts from the specific language image to $STI_SCRIPTS_PATH
