@@ -66,7 +66,8 @@ RUN chmod -R a+rw /logs && \
     chmod -R a+rw /springboot && \
     chmod -R a+rw $HOME && \
     chmod -R +x $STI_SCRIPTS_PATH && \
-    chmod -R g+rw /opt/s2i/destination
+    chmod -R g+rw /opt/s2i/destination && \
+	chmod -R 777 /opt/
 
 USER 1001
 
