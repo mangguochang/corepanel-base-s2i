@@ -31,7 +31,7 @@ RUN INSTALL_PKGS="tar java-1.8.0-openjdk java-1.8.0-openjdk-devel" && \
     chmod 777 /usr/local/bin/oc && \
     mkdir  /springboot/ && \
     mkdir /logs	
-RUN sudo yum install git -y
+RUN sudo yum install -y git
 RUN sudo yum install -y epel-release -y && sudo yum install ansible -y 
 # Add s2i customizations
 ADD ./settings.xml $HOME/.m2/
