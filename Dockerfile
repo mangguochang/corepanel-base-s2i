@@ -33,7 +33,26 @@ RUN INSTALL_PKGS="tar java-1.8.0-openjdk java-1.8.0-openjdk-devel" && \
     mkdir /logs	&& \
 	chmod 777 /opt/
 RUN yum install -y git
-RUN yum install -y epel-release && yum install ansible -y 
+# Install requirements.
+RUN yum makecache fast \
+ && yum -y install deltarpm epel-release initscripts \
+ && yum -y update \
+ && yum -y install \
+      sudo \
+      which \
+      python-pip \
+ && yum clean all
+
+# Install Ansible via Pip.
+RUN pip install $pip_packages
+
+# Disable requiretty.
+RUN sed -i -e 's/^\(Defaults\s*requiretty\)/#--- \1/'  /etc/sudoers
+
+# Install Ansible inventory file.
+RUN mkdir -p /etc/ansible
+RUN echo -e '[local]\nlocalhost ansible_connection=local' > /etc/ansible/hosts1
+RUN echo -e '[dev]\n127.0.0.1 ansible_connection=local' > /etc/ansible/hosts
 # Add s2i customizations
 ADD ./settings.xml $HOME/.m2/
 # Copy the S2I scripts from the specific language image to $STI_SCRIPTS_PATH
