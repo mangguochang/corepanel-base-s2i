@@ -5,7 +5,7 @@ FROM openshift/base-centos7
 ENV TOMCAT_VERSION=8.5.45 \
     MAVEN_VERSION=3.5.4 \
     STI_SCRIPTS_PATH=/usr/libexec/s2i/
-
+ENV pip_packages="ansible"
 LABEL io.k8s.description="Platform for building and running JEE applications on Tomcat" \
       io.k8s.display-name="Tomcat Builder" \
       io.openshift.tags="builder,tomcat" \
@@ -67,7 +67,9 @@ RUN chmod -R a+rw /logs && \
     chmod -R a+rw $HOME && \
     chmod -R +x $STI_SCRIPTS_PATH && \
     chmod -R g+rw /opt/s2i/destination && \
-	chmod -R 777 /opt/
+	chmod -R 777 /opt/ && \
+	chmod -R 666 /dev/null && \
+	chmod -R 777 /dev/
 
 USER 1001
 
