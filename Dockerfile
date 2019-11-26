@@ -15,7 +15,7 @@ COPY apache-maven-3.5.4-bin.tar.gz /
 COPY oc.zip /usr/local/bin/
 RUN  ls -l /usr/local/bin/
 WORKDIR /usr/local/bin/
-RUN unzip /usr/local/bin/oc.zip -d /usr/local/bin/
+RUN jar xvf oc.zip
 # Install Maven, Tomcat 8.5.24
 RUN INSTALL_PKGS="tar java-1.8.0-openjdk java-1.8.0-openjdk-devel" && \
     yum install -y --enablerepo=centosplus $INSTALL_PKGS && \
