@@ -1,4 +1,4 @@
-FROM openshift/base-centos7
+FROM ansible/centos7-ansible:devel
 
 #EXPOSE 8081
 
@@ -16,7 +16,7 @@ RUN yum clean all && \
 RUN mkdir /etc/ansible/
 RUN echo -e '[local]\nlocalhost' > /etc/ansible/hosts
 RUN pip install --upgrade pip
-RUN pip install ansible
+#RUN pip install ansible
 RUN yum install java-1.8.0-openjdk  java-1.8.0-openjdk-devel -y
 COPY apache-maven-3.5.4-bin.tar.gz /
 COPY oc /usr/local/bin/
