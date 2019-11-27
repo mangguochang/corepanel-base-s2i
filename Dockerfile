@@ -1,4 +1,4 @@
-FROM centos:centos7
+FROM openshift/base-centos7
 
 #EXPOSE 8081
 
