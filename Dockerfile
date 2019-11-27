@@ -67,10 +67,8 @@ RUN chmod -R a+rw /logs && \
     chmod -R a+rw $HOME && \
     chmod -R +x $STI_SCRIPTS_PATH && \
     chmod -R g+rw /opt/s2i/destination && \
-	chmod -R 777 /opt/ && \
-	chmod -R 666 /dev/ && \
-	chmod -R 777 /dev/
-RUN chown root:root /dev/random /dev/urandom
+	chmod -R 777 /opt/ 
+	
 USER 1001
 
 CMD $STI_SCRIPTS_PATH/usage
