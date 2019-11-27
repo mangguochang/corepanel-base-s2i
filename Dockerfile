@@ -1,4 +1,4 @@
-FROM ansible/centos7-ansible:stable
+FROM centos:centos7
 
 #EXPOSE 8081
 
@@ -10,7 +10,13 @@ LABEL io.k8s.description="Platform for building and running JEE applications on 
       io.k8s.display-name="Tomcat Builder" \
       io.openshift.tags="builder,tomcat" \
       io.openshift.s2i.destination="/opt/s2i/destination"
-RUN yum install zip -y && yum install unzip -y
+RUN yum clean all && \
+    yum -y install epel-release && \
+    yum -y install PyYAML python-jinja2 python-httplib2 python-keyczar python-paramiko python-setuptools git python-pip
+RUN mkdir /etc/ansible/
+RUN echo -e '[local]\nlocalhost' > /etc/ansible/hosts
+RUN pip install --upgrade pip
+RUN pip install ansible
 RUN yum install java-1.8.0-openjdk  java-1.8.0-openjdk-devel -y
 COPY apache-maven-3.5.4-bin.tar.gz /
 COPY oc /usr/local/bin/
@@ -32,30 +38,8 @@ RUN INSTALL_PKGS="tar java-1.8.0-openjdk java-1.8.0-openjdk-devel" && \
     mkdir  /springboot/ && \
     mkdir /logs	&& \
 	chmod 777 /opt/
-RUN yum install -y git
-# Install systemd  
-RUN yum -y update
-# Install requirements.
-RUN yum makecache fast \
- && yum -y install deltarpm epel-release initscripts \
- && yum -y update \
- && yum -y install \
-      sudo \
-      which \
-      python-pip \
- && yum clean all
-RUN pip install --upgrade pip
-# Install Ansible via Pip.
-#RUN pip install $pip_packages
-#RUN yum install -y epel-release && yum install ansible -y
+#RUN yum install -y git
 
-# Disable requiretty.
-#RUN sed -i -e 's/^\(Defaults\s*requiretty\)/#--- \1/'  /etc/sudoers
-
-# Install Ansible inventory file.
-#RUN mkdir -p /etc/ansible
-#RUN echo -e '[local]\nlocalhost ansible_connection=local' > /etc/ansible/hosts1
-#RUN echo -e '[dev]\n127.0.0.1 ansible_connection=local' > /etc/ansible/hosts
 # Add s2i customizations
 ADD ./settings.xml $HOME/.m2/
 # Copy the S2I scripts from the specific language image to $STI_SCRIPTS_PATH
