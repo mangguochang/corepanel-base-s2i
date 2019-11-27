@@ -1,4 +1,4 @@
-FROM ansible/centos7-ansible
+FROM ansible/centos7-ansible:stable
 
 #EXPOSE 8081
 
@@ -47,21 +47,21 @@ RUN yum makecache fast \
 RUN pip install --upgrade pip
 # Install Ansible via Pip.
 #RUN pip install $pip_packages
-RUN yum install -y epel-release && yum install ansible -y
+#RUN yum install -y epel-release && yum install ansible -y
 
 # Disable requiretty.
 #RUN sed -i -e 's/^\(Defaults\s*requiretty\)/#--- \1/'  /etc/sudoers
 
 # Install Ansible inventory file.
-RUN mkdir -p /etc/ansible
-RUN echo -e '[local]\nlocalhost ansible_connection=local' > /etc/ansible/hosts1
-RUN echo -e '[dev]\n127.0.0.1 ansible_connection=local' > /etc/ansible/hosts
+#RUN mkdir -p /etc/ansible
+#RUN echo -e '[local]\nlocalhost ansible_connection=local' > /etc/ansible/hosts1
+#RUN echo -e '[dev]\n127.0.0.1 ansible_connection=local' > /etc/ansible/hosts
 # Add s2i customizations
 ADD ./settings.xml $HOME/.m2/
 # Copy the S2I scripts from the specific language image to $STI_SCRIPTS_PATH
 #COPY ./s2i/bin/ $STI_SCRIPTS_PATH
 COPY ./s2i/bin/ /usr/libexec/s2i
-#RUN mknod /dev/null c 1 3
+
 RUN chmod -R a+rw /logs && \
     chmod -R a+rw /springboot && \
     chmod -R a+rw $HOME && \
@@ -70,9 +70,6 @@ RUN chmod -R a+rw /logs && \
 	chmod -R 777 /opt/ && \
 	chmod -R 666 /dev/ && \
 	chmod -R 777 /dev/
-#RUN mknod -m 666 /dev/random c 1 8
-
-#RUN mknod -m 666 /dev/urandom c 1 9
 RUN chown root:root /dev/random /dev/urandom
 USER 1001
 
