@@ -32,17 +32,8 @@ RUN INSTALL_PKGS="tar java-1.8.0-openjdk java-1.8.0-openjdk-devel" && \
     mkdir  /springboot/ && \
     mkdir /logs	&& \
 	chmod 777 /opt/
-#RUN yum install -y git
-RUN yum clean all && \
-    yum -y install epel-release && \
-    yum -y install PyYAML && \
-    yum -y install python-jinja2 && \
-    yum -y install python-httplib2 && \
-    yum -y install python-keyczar && \
-    yum -y install python-paramiko && \
-    yum -y install python-setuptools && \
-    yum -y install git && \
-    yum -y install python-pip
+RUN yum install -y git
+RUN yum install -y ansible
 RUN mkdir -p /etc/ansible/
 RUN echo -e '[local]\nlocalhost' > /etc/ansible/hosts
 RUN pip install --upgrade pip
