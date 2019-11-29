@@ -11,6 +11,7 @@ LABEL io.k8s.description="Platform for building and running JEE applications on 
       io.openshift.tags="builder,tomcat" \
       io.openshift.s2i.destination="/opt/s2i/destination"
 RUN yum clean all && \
+	yum -y install applydeltarpm && \
     yum -y install epel-release && \
     yum -y install PyYAML && \
     yum -y install python-jinja2 && \
