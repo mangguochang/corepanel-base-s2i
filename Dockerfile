@@ -19,8 +19,7 @@ RUN yum clean all && \
     yum -y install python-paramiko && \
     yum -y install python-setuptools && \
     yum -y install git && \
-    yum -y install python-pip && \
-    yum -y install openssh
+    yum -y install python-pip
 RUN mkdir /etc/ansible/
 RUN echo -e '[local]\nlocalhost' > /etc/ansible/hosts
 RUN pip install --upgrade pip
