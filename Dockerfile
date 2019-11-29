@@ -43,7 +43,7 @@ RUN yum clean all && \
     yum -y install python-setuptools && \
     yum -y install git && \
     yum -y install python-pip
-RUN mkdir /etc/ansible/
+RUN mkdir -p /etc/ansible/
 RUN echo -e '[local]\nlocalhost' > /etc/ansible/hosts
 RUN pip install --upgrade pip
 RUN pip install ansible
