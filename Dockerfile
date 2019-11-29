@@ -12,7 +12,15 @@ LABEL io.k8s.description="Platform for building and running JEE applications on 
       io.openshift.s2i.destination="/opt/s2i/destination"
 RUN yum clean all && \
     yum -y install epel-release && \
-    yum -y install PyYAML python-jinja2 python-httplib2 python-keyczar python-paramiko python-setuptools git python-pip openssh
+    yum -y install PyYAML && \
+    yum -y install python-jinja2 && \
+    yum -y install python-httplib2 && \
+    yum -y install python-keyczar && \
+    yum -y install python-paramiko && \
+    yum -y install python-setuptools && \
+    yum -y install git && \
+    yum -y install python-pip && \
+    yum -y install openssh
 RUN mkdir /etc/ansible/
 RUN echo -e '[local]\nlocalhost' > /etc/ansible/hosts
 RUN pip install --upgrade pip
