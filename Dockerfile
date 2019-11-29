@@ -11,14 +11,8 @@ LABEL io.k8s.description="Platform for building and running JEE applications on 
       io.openshift.tags="builder,tomcat" \
       io.openshift.s2i.destination="/opt/s2i/destination"
 RUN yum clean all && \
-	yum -y install applydeltarpm && \
     yum -y install epel-release && \
     yum -y install PyYAML && \
-    yum -y install python-jinja2 && \
-    yum -y install python-httplib2 && \
-    yum -y install python-keyczar && \
-    yum -y install python-paramiko && \
-    yum -y install python-setuptools && \
     yum -y install git && \
     yum -y install python-pip
 RUN mkdir /etc/ansible/
