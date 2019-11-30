@@ -10,11 +10,7 @@ LABEL io.k8s.description="Platform for building and running JEE applications on 
       io.k8s.display-name="Tomcat Builder" \
       io.openshift.tags="builder,tomcat" \
       io.openshift.s2i.destination="/opt/s2i/destination"
-RUN yum clean all && \
-    yum -y install epel-release && \
-    yum -y install git python-pip
-RUN mkdir -p /etc/ansible/
-RUN echo -e '[local]\nlocalhost' > /etc/ansible/hosts
+ 
 # pip install --upgrade pip
 #RUN yum -y install openshift-ansible
 RUN yum install java-1.8.0-openjdk  java-1.8.0-openjdk-devel -y
