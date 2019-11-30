@@ -1,4 +1,4 @@
-FROM ansible/centos7-ansible:devel
+FROM openshift/base-centos7
 
 #EXPOSE 8081
 
