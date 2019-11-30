@@ -16,7 +16,7 @@ RUN yum clean all && \
 RUN mkdir -p /etc/ansible/
 RUN echo -e '[local]\nlocalhost' > /etc/ansible/hosts
 # pip install --upgrade pip
-RUN yum -y install openshift-ansible
+#RUN yum -y install openshift-ansible
 RUN yum install java-1.8.0-openjdk  java-1.8.0-openjdk-devel -y
 COPY apache-maven-3.5.4-bin.tar.gz /
 COPY oc /usr/local/bin/
