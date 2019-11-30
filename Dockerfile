@@ -1,4 +1,4 @@
-FROM openshift/base-centos7
+FROM ansible/centos7-ansible:devel
 
 #EXPOSE 8081
 
@@ -10,7 +10,13 @@ LABEL io.k8s.description="Platform for building and running JEE applications on 
       io.k8s.display-name="Tomcat Builder" \
       io.openshift.tags="builder,tomcat" \
       io.openshift.s2i.destination="/opt/s2i/destination"
-
+RUN yum clean all && \
+    yum -y install epel-release && \
+    yum -y install PyYAML python-jinja2 python-httplib2 python-keyczar python-paramiko python-setuptools git python-pip openssh
+RUN mkdir /etc/ansible/
+RUN echo -e '[local]\nlocalhost' > /etc/ansible/hosts
+RUN pip install --upgrade pip
+RUN pip install ansible
 RUN yum install java-1.8.0-openjdk  java-1.8.0-openjdk-devel -y
 COPY apache-maven-3.5.4-bin.tar.gz /
 COPY oc /usr/local/bin/
@@ -34,12 +40,6 @@ RUN INSTALL_PKGS="tar java-1.8.0-openjdk java-1.8.0-openjdk-devel" && \
 	chmod 777 /opt/
 #RUN yum install -y git
 
-RUN yum -y install epel-release	
-RUN yum -y install ansible
-RUN mkdir -p /etc/ansible/
-RUN echo -e '[local]\nlocalhost' > /etc/ansible/hosts
-#RUN pip install --upgrade pip
-#RUN pip install ansible
 # Add s2i customizations
 ADD ./settings.xml $HOME/.m2/
 # Copy the S2I scripts from the specific language image to $STI_SCRIPTS_PATH
